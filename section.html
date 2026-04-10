@@ -22,7 +22,7 @@
 
         <!-- Main Demo Video -->
         <div class="hero-video-container">
-            <video id="voi-demo" src="static/VOI_demo.mp4" autoplay loop muted playsinline class="hero-video" title="Click to hear sound"></video>
+            <video id="voi-demo" src="voi-final.mp4" autoplay loop muted playsinline class="hero-video" title="Click to hear sound"></video>
         </div>
 
         <!-- Development Tool Video -->
@@ -38,6 +38,19 @@
             <p class="body-large">
                 Video object insertion is a critical task for dynamically inserting new objects into existing environments. Previous video generation methods focus primarily on synthesizing entire scenes while struggle with ensuring consistent object appearance, spatial alignment, and temporal coherence when inserting objects into existing videos. In this paper, we propose a novel solution for Video Object Insertion, which integrates multi-view object priors to address the common challenges of appearance inconsistency and occlusion handling in dynamic environments. By lifting 2D reference images into multi-view representations and leveraging a dual-path view-consistent conditioning mechanism, our framework ensures stable identity guidance and robust integration across diverse viewpoints. A quality-aware weighting mechanism is also conducted to adaptively handle noisy or imperfect inputs. Additionally, we introduce an Integration-Aware Consistency Module that guarantee spatial realism, effectively resolving occlusion and boundary artifacts while maintaining temporal continuity across frames. Experimental results show that our solution significantly improves the quality of video object insertion, providing stable and realistic integration.
             </p>
+        </div>
+    </section>
+
+    <!-- Method Section -->
+    <section class="section-light" id="method">
+        <div class="container narrow">
+            <h2>Method</h2>
+            <figure class="framework-figure">
+                <img src="framework.png" alt="Overview of the proposed multi-view aided video object insertion framework." width="6682" height="2760" loading="lazy">
+                <figcaption>
+                    Overview of the proposed multi-view aided video object insertion framework. IPLI stands for Identity-Preserving Latent Injection, MVFB for Multi-View Feature Bank, SAA for Synthesized Artifact Augmentation, SCC for Semantic Consistency Check.
+                </figcaption>
+            </figure>
         </div>
     </section>
 
