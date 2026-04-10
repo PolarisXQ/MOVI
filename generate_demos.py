@@ -57,7 +57,7 @@ def generate_html():
                     <div class="slider-handle"></div>
                 </div>
                 <span class="compare-label label-left">Original</span>
-                <span class="compare-label label-right">PISCO</span>
+                <span class="compare-label label-right">Edited</span>
             </div>
         </div>
 '''
