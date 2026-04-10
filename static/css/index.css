@@ -179,14 +179,10 @@ h2 {
     margin-bottom: 28px;
 }
 
-.abstract-section .container.narrow h2 {
-    text-align: left;
-}
-
-.abstract-section .container.narrow .body-large {
+.container.narrow .body-large {
     text-align: left;
     font-size: 1rem;
-    line-height: 1.62;
+    line-height: 1.65;
 }
 
 /* ─── Demo Grid (Compatibility for PISCO's video comparisons) ─── */
