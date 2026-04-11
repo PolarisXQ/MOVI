@@ -1,4 +1,4 @@
-/* ─── PISCO Project Style (Based on Visual Chronometer) ─── */
+/* ─── Project Style (Based on Visual Chronometer) ─── */
 
 /* ─── Reset & Base ─── */
 *, *::before, *::after {
@@ -207,7 +207,7 @@ h2 {
     text-align: left;
 }
 
-/* ─── Demo Grid (Compatibility for PISCO's video comparisons) ─── */
+/* ─── Demo Grid (Compatibility for video comparisons) ─── */
 .demo-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
