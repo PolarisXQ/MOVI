@@ -16,9 +16,8 @@
         </p>
         <p class="hero-affiliation"><sup>1</sup>Texas A&M University &nbsp; <sup>2</sup>Visko Platform &nbsp; <sup>3</sup>KAIST &nbsp; <sup>4</sup>Stanford University</p> -->
 
-        <!-- Anonymous Author and Affiliation -->
-        <p class="hero-authors">Anonymous Author</p>
-        <p class="hero-affiliation">Anonymous Affiliation</p>
+        <p class="hero-authors">Qi Xia<sup>*</sup> &middot; Peishan Cong<sup>*</sup> &middot; Yichen Yao &middot; Ziyi Wang &middot; Yaoqin Ye &middot; Yuexin Ma<sup>†</sup></p>
+        <p class="hero-affiliation"><sup>*</sup>Equal contribution &nbsp;·&nbsp; <sup>†</sup>Corresponding author<br>ShanghaiTech University</p>
 
         <!-- Main Demo Video -->
         <div class="hero-video-container">
@@ -63,12 +62,15 @@
             </div>
 
             <h3 class="comparison-title">Instance Insertion</h3>
-            <div class="demo-grid">
+            <div class="instance-ins-toolbar">
+                <button type="button" id="control-signal-toggle" class="control-signal-toggle" aria-pressed="false" title="Switch edited result between standard output and control-signal visualization">control signal</button>
+            </div>
+            <div class="demo-grid" id="instance-ins-demos">
                 <!-- Row 1 -->
                 <div class="comparison-card">
                     <div class="video-compare-container">
                         <div class="video-wrapper">
-                            <video loop muted playsinline preload="metadata">
+                            <video data-base-name="walk" loop muted playsinline preload="metadata">
                                 <source src="static/demos/instance_ins/edited/walk.mp4" type="video/mp4">
                             </video>
                         </div>
@@ -86,7 +88,7 @@
                 <div class="comparison-card">
                     <div class="video-compare-container">
                         <div class="video-wrapper">
-                            <video loop muted playsinline preload="metadata">
+                            <video data-base-name="stone" loop muted playsinline preload="metadata">
                                 <source src="static/demos/instance_ins/edited/stone.mp4" type="video/mp4">
                             </video>
                         </div>
@@ -105,7 +107,7 @@
                 <div class="comparison-card">
                     <div class="video-compare-container">
                         <div class="video-wrapper">
-                            <video loop muted playsinline preload="metadata">
+                            <video data-base-name="maple" loop muted playsinline preload="metadata">
                                 <source src="static/demos/instance_ins/edited/maple.mp4" type="video/mp4">
                             </video>
                         </div>
@@ -123,7 +125,7 @@
                 <div class="comparison-card">
                     <div class="video-compare-container">
                         <div class="video-wrapper">
-                            <video loop muted playsinline preload="metadata">
+                            <video data-base-name="turning" loop muted playsinline preload="metadata">
                                 <source src="static/demos/instance_ins/edited/turning.mp4" type="video/mp4">
                             </video>
                         </div>
@@ -227,7 +229,7 @@
                 <button class="copy-button" onclick="copyToClipboard()"><span>Copy</span></button>
                     <pre id="citation-text"><code>@article{xxxx,
                     title={Controllable Video Object Insertion via Multiview Priors},
-                    author={Anonymous Author},
+                    author={Qi Xia and Peishan Cong and Yichen Yao and Ziyi Wang and Yaoqin Ye and Yuexin Ma},
                     journal={arXiv preprint arXiv:XXXX.XXXX},
                     year={2026}
 }</code></pre>
@@ -237,6 +239,6 @@
 
     <!-- Footer -->
     <footer>
-        <p>VOI &middot; Anonymous Affiliation</p>
+        <p>VOI &middot; ShanghaiTech University</p>
     </footer>
 </div>

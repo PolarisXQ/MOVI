@@ -101,3 +101,34 @@
 .label-right {
     right: 10px;
 }
+
+.instance-ins-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 1rem;
+}
+
+.control-signal-toggle {
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    padding: 0.45rem 0.85rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.92);
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.control-signal-toggle:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.control-signal-toggle[aria-pressed="true"] {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.55);
+}
