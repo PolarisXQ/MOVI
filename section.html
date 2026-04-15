@@ -61,9 +61,9 @@
                 <p class="section-subtitle">Slide to compare original footage with insertion results.</p>
             </div>
 
-            <h3 class="comparison-title">Instance Insertion</h3>
-            <div class="instance-ins-toolbar">
-                <button type="button" id="control-signal-toggle" class="control-signal-toggle" aria-pressed="false" title="Switch edited result between standard output and control-signal visualization">control signal</button>
+            <div class="comparison-title-row">
+                <h3 class="comparison-title">Instance Insertion</h3>
+                <button type="button" class="control-signal-toggle" data-demo-root="instance-ins-demos" data-url-prefix="static/demos/instance_ins" aria-pressed="false" title="Switch edited result between standard output and control-signal visualization">control signal</button>
             </div>
             <div class="demo-grid" id="instance-ins-demos">
                 <!-- Row 1 -->
@@ -141,12 +141,15 @@
                 </div>
             </div>
 
-            <h3 class="comparison-title">Foreground or Background Substitution</h3>
-            <div class="demo-grid">
+            <div class="comparison-title-row">
+                <h3 class="comparison-title">Foreground or Background Substitution</h3>
+                <button type="button" class="control-signal-toggle" data-demo-root="substitution-demos" data-url-prefix="static/demos/substitution" aria-pressed="false" title="Switch edited result between standard output and control-signal visualization">control signal</button>
+            </div>
+            <div class="demo-grid" id="substitution-demos">
                 <div class="comparison-card">
                     <div class="video-compare-container">
                         <div class="video-wrapper">
-                            <video loop muted playsinline preload="metadata">
+                            <video data-base-name="car-roundabout" loop muted playsinline preload="metadata">
                                 <source src="static/demos/substitution/edited/car-roundabout.mp4" type="video/mp4">
                             </video>
                         </div>
@@ -164,7 +167,7 @@
                 <div class="comparison-card">
                     <div class="video-compare-container">
                         <div class="video-wrapper">
-                            <video loop muted playsinline preload="metadata">
+                            <video data-base-name="blackswan" loop muted playsinline preload="metadata">
                                 <source src="static/demos/substitution/edited/blackswan.mp4" type="video/mp4">
                             </video>
                         </div>
@@ -180,12 +183,15 @@
                 </div>
             </div>
 
-            <h3 class="comparison-title">Attribute Manipulation</h3>
-            <div class="demo-grid">
+            <div class="comparison-title-row">
+                <h3 class="comparison-title">Attribute Manipulation</h3>
+                <button type="button" class="control-signal-toggle" data-demo-root="attribute-demos" data-url-prefix="static/demos/attribute_manip" aria-pressed="false" title="Switch edited result between standard output and control-signal visualization">control signal</button>
+            </div>
+            <div class="demo-grid" id="attribute-demos">
                 <div class="comparison-card">
                     <div class="video-compare-container">
                         <div class="video-wrapper">
-                            <video loop muted playsinline preload="metadata">
+                            <video data-base-name="libby" loop muted playsinline preload="metadata">
                                 <source src="static/demos/attribute_manip/edited/libby.mp4" type="video/mp4">
                             </video>
                         </div>
@@ -203,7 +209,7 @@
                 <div class="comparison-card">
                     <div class="video-compare-container">
                         <div class="video-wrapper">
-                            <video loop muted playsinline preload="metadata">
+                            <video data-base-name="blackswan" data-mask-base-name="blackswan3" loop muted playsinline preload="metadata">
                                 <source src="static/demos/attribute_manip/edited/blackswan.mp4" type="video/mp4">
                             </video>
                         </div>

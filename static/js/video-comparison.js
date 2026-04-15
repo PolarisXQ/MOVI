@@ -2,40 +2,45 @@ document.addEventListener('DOMContentLoaded', function () {
     initVideoComparisons();
 });
 
-function initInstanceInsControlSignalToggle() {
-    const btn = document.getElementById('control-signal-toggle');
-    const grid = document.getElementById('instance-ins-demos');
-    if (!btn || !grid) return;
+function initControlSignalToggles() {
+    document.querySelectorAll('.control-signal-toggle[data-demo-root][data-url-prefix]').forEach(function (btn) {
+        const gridId = btn.getAttribute('data-demo-root');
+        const urlPrefix = btn.getAttribute('data-url-prefix');
+        const grid = document.getElementById(gridId);
+        if (!grid || !urlPrefix) return;
 
-    const baseVideos = grid.querySelectorAll('.video-wrapper video[data-base-name]');
+        const baseVideos = grid.querySelectorAll('.video-wrapper video[data-base-name]');
 
-    btn.addEventListener('click', function () {
-        const useMask = btn.getAttribute('aria-pressed') !== 'true';
-        btn.setAttribute('aria-pressed', useMask ? 'true' : 'false');
+        btn.addEventListener('click', function () {
+            const useMask = btn.getAttribute('aria-pressed') !== 'true';
+            btn.setAttribute('aria-pressed', useMask ? 'true' : 'false');
 
-        baseVideos.forEach(function (video) {
-            const container = video.closest('.video-compare-container');
-            const overlayVideo = container ? container.querySelector('.video-overlay video') : null;
-            const t = overlayVideo ? overlayVideo.currentTime : 0;
-            const wasPlaying = !video.paused;
+            baseVideos.forEach(function (video) {
+                const container = video.closest('.video-compare-container');
+                const overlayVideo = container ? container.querySelector('.video-overlay video') : null;
+                const t = overlayVideo ? overlayVideo.currentTime : 0;
+                const wasPlaying = !video.paused;
 
-            const name = video.dataset.baseName;
-            const source = video.querySelector('source');
-            if (!name || !source) return;
+                const baseName = video.dataset.baseName;
+                const maskName = video.dataset.maskBaseName || baseName;
+                const source = video.querySelector('source');
+                if (!baseName || !source) return;
 
-            const dir = useMask ? 'edited_with_mask' : 'edited';
-            source.src = 'static/demos/instance_ins/' + dir + '/' + name + '.mp4';
-            video.load();
+                const dir = useMask ? 'edited_with_mask' : 'edited';
+                const fileStem = useMask ? maskName : baseName;
+                source.src = urlPrefix + '/' + dir + '/' + fileStem + '.mp4';
+                video.load();
 
-            function syncAfterLoad() {
-                video.currentTime = t;
-                if (overlayVideo) overlayVideo.currentTime = t;
-                if (wasPlaying) {
-                    video.play().catch(function () {});
+                function syncAfterLoad() {
+                    video.currentTime = t;
+                    if (overlayVideo) overlayVideo.currentTime = t;
+                    if (wasPlaying) {
+                        video.play().catch(function () {});
+                    }
                 }
-            }
 
-            video.addEventListener('loadedmetadata', syncAfterLoad, { once: true });
+                video.addEventListener('loadedmetadata', syncAfterLoad, { once: true });
+            });
         });
     });
 }
@@ -124,5 +129,5 @@ function initVideoComparisons() {
         });
     });
 
-    initInstanceInsControlSignalToggle();
+    initControlSignalToggles();
 }

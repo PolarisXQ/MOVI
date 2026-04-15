@@ -102,13 +102,21 @@
     right: 10px;
 }
 
-.instance-ins-toolbar {
+.comparison-title-row {
     display: flex;
-    justify-content: flex-end;
-    margin: 0 0 1rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    margin: 48px 0 24px;
+}
+
+.comparison-title-row .comparison-title {
+    margin: 0;
 }
 
 .control-signal-toggle {
+    flex-shrink: 0;
     font-family: inherit;
     font-size: 0.75rem;
     font-weight: 600;
@@ -116,19 +124,19 @@
     text-transform: none;
     padding: 0.45rem 0.85rem;
     border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    background: #3a3a3c;
+    color: rgba(255, 255, 255, 0.94);
     cursor: pointer;
     transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .control-signal-toggle:hover {
-    background: rgba(255, 255, 255, 0.14);
-    border-color: rgba(255, 255, 255, 0.5);
+    background: #48484a;
+    border-color: rgba(0, 0, 0, 0.45);
 }
 
 .control-signal-toggle[aria-pressed="true"] {
-    background: rgba(255, 255, 255, 0.22);
-    border-color: rgba(255, 255, 255, 0.55);
+    background: #555558;
+    border-color: rgba(0, 0, 0, 0.5);
 }
