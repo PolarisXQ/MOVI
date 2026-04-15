@@ -2,6 +2,168 @@ document.addEventListener('DOMContentLoaded', function () {
     initVideoComparisons();
 });
 
+function extractTaskAndVideo(container) {
+    const baseVideo = container.querySelector('.video-wrapper video');
+    const baseSource = baseVideo ? baseVideo.querySelector('source') : null;
+    const overlaySource = container.querySelector('.video-overlay video source');
+
+    const path = (baseSource && baseSource.getAttribute('src')) || (overlaySource && overlaySource.getAttribute('src')) || '';
+    const taskMatch = path.match(/static\/demos\/([^/]+)\//);
+    const taskName = taskMatch ? taskMatch[1] : '';
+
+    let videoName = baseVideo && baseVideo.dataset ? baseVideo.dataset.baseName : '';
+    if (!videoName) {
+        const fileMatch = path.match(/\/([^/]+)\.mp4$/);
+        videoName = fileMatch ? fileMatch[1] : '';
+    }
+
+    return { taskName: taskName, videoName: videoName };
+}
+
+function createMetaBox(title, body) {
+    const box = document.createElement('div');
+    box.className = 'meta-box';
+
+    const heading = document.createElement('h4');
+    heading.className = 'meta-box-title';
+    heading.textContent = title;
+
+    box.appendChild(heading);
+    box.appendChild(body);
+    return box;
+}
+
+function createPromptContent(taskName, videoName) {
+    const promptText = document.createElement('pre');
+    promptText.className = 'prompt-content';
+    promptText.textContent = 'Loading prompt...';
+
+    if (!taskName || !videoName) {
+        promptText.textContent = 'Prompt not available.';
+        return promptText;
+    }
+
+    const promptPath = 'static/demos/' + taskName + '/prompt/' + videoName + '.txt';
+    fetch(promptPath)
+        .then(function (response) {
+            if (!response.ok) throw new Error('Prompt not found');
+            return response.text();
+        })
+        .then(function (text) {
+            promptText.textContent = text.trim() || '(empty prompt)';
+        })
+        .catch(function () {
+            promptText.textContent = 'Prompt not found.';
+        });
+
+    return promptText;
+}
+
+function createGalleryContent(taskName, videoName) {
+    const gallery = document.createElement('div');
+    gallery.className = 'ref-gallery';
+
+    const candidates = [videoName];
+    if (videoName === 'car-roundabout') {
+        candidates.push('car-roudabout');
+    }
+
+    for (let i = 0; i < 4; i += 1) {
+        const image = document.createElement('img');
+        image.loading = 'lazy';
+        image.decoding = 'async';
+        image.alt = videoName + ' reference view ' + i;
+        image.dataset.idx = String(i);
+        image.dataset.videoCandidates = candidates.join(',');
+        image.dataset.taskName = taskName;
+
+        const idx = String(i).padStart(2, '0');
+        image.src = 'static/demos/' + taskName + '/ref/' + candidates[0] + '/' + candidates[0] + '_view' + idx + '.png';
+        image.onerror = function () {
+            const altCandidates = (this.dataset.videoCandidates || '').split(',');
+            const current = this.dataset.currentCandidate || altCandidates[0];
+            const currentIndex = altCandidates.indexOf(current);
+            const nextIndex = currentIndex + 1;
+
+            if (nextIndex >= altCandidates.length) {
+                this.classList.add('ref-image-missing');
+                this.onerror = null;
+                return;
+            }
+
+            const nextCandidate = altCandidates[nextIndex];
+            this.dataset.currentCandidate = nextCandidate;
+            const viewId = String(this.dataset.idx).padStart(2, '0');
+            this.src = 'static/demos/' + this.dataset.taskName + '/ref/' + nextCandidate + '/' + nextCandidate + '_view' + viewId + '.png';
+        };
+
+        gallery.appendChild(image);
+    }
+
+    return gallery;
+}
+
+function createModelContent(taskName, videoName) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'model-viewer-wrapper';
+
+    const modelViewer = document.createElement('model-viewer');
+    modelViewer.className = 'ref-model-viewer';
+    modelViewer.setAttribute('camera-controls', '');
+    modelViewer.setAttribute('touch-action', 'pan-y');
+    modelViewer.setAttribute('shadow-intensity', '0.8');
+    modelViewer.setAttribute('exposure', '1');
+    modelViewer.alt = videoName + ' 3D model preview';
+
+    const candidates = [videoName];
+    if (videoName === 'car-roundabout') {
+        candidates.push('car-roudabout');
+    }
+
+    modelViewer.dataset.videoCandidates = candidates.join(',');
+    modelViewer.dataset.taskName = taskName;
+    modelViewer.dataset.currentCandidate = candidates[0];
+    modelViewer.src = 'static/demos/' + taskName + '/ref/' + candidates[0] + '/' + candidates[0] + '.glb';
+    modelViewer.addEventListener('error', function () {
+        const altCandidates = (this.dataset.videoCandidates || '').split(',');
+        const current = this.dataset.currentCandidate || altCandidates[0];
+        const currentIndex = altCandidates.indexOf(current);
+        const nextIndex = currentIndex + 1;
+
+        if (nextIndex >= altCandidates.length) return;
+        const nextCandidate = altCandidates[nextIndex];
+        this.dataset.currentCandidate = nextCandidate;
+        this.src = 'static/demos/' + this.dataset.taskName + '/ref/' + nextCandidate + '/' + nextCandidate + '.glb';
+    });
+
+    wrapper.appendChild(modelViewer);
+    return wrapper;
+}
+
+function createReferencePanel(taskName, videoName) {
+    const panel = document.createElement('aside');
+    panel.className = 'comparison-meta-panel';
+
+    panel.appendChild(createMetaBox('3D Model', createModelContent(taskName, videoName)));
+    panel.appendChild(createMetaBox('Reference Views', createGalleryContent(taskName, videoName)));
+    panel.appendChild(createMetaBox('Prompt', createPromptContent(taskName, videoName)));
+    return panel;
+}
+
+function initReferencePanels() {
+    document.querySelectorAll('.comparison-card .video-compare-container').forEach(function (container) {
+        const card = container.closest('.comparison-card');
+        if (!card || card.querySelector('.comparison-meta-panel')) return;
+
+        const info = extractTaskAndVideo(container);
+        if (!info.taskName || !info.videoName) return;
+
+        const panel = createReferencePanel(info.taskName, info.videoName);
+        card.classList.add('comparison-card-with-meta');
+        card.insertBefore(panel, container);
+    });
+}
+
 function initControlSignalToggles() {
     document.querySelectorAll('.control-signal-toggle[data-demo-root][data-url-prefix]').forEach(function (btn) {
         const gridId = btn.getAttribute('data-demo-root');
@@ -46,6 +208,8 @@ function initControlSignalToggles() {
 }
 
 function initVideoComparisons() {
+    initReferencePanels();
+
     const containers = document.querySelectorAll('.video-compare-container');
 
     const observer = new IntersectionObserver((entries) => {

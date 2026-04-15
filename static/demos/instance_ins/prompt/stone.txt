@@ -1,0 +1,1 @@
+A robot is pacing in place, rotating as it moves.
