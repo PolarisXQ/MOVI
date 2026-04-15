@@ -105,7 +105,7 @@
 .comparison-title-row {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
     gap: 0.75rem 1rem;
     margin: 48px 0 24px;
@@ -113,6 +113,7 @@
 
 .comparison-title-row .comparison-title {
     margin: 0;
+    text-align: left;
 }
 
 .control-signal-toggle {
