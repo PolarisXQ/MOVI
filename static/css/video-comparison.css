@@ -103,21 +103,26 @@
 }
 
 .comparison-title-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.75rem 1rem;
+    position: relative;
     margin: 48px 0 24px;
+    /* Symmetric horizontal padding keeps the title optically centered; button sits in the right inset. */
+    padding: 0 5.75rem;
+    box-sizing: border-box;
 }
 
 .comparison-title-row .comparison-title {
     margin: 0;
-    text-align: left;
+    text-align: center;
+}
+
+.comparison-title-row .control-signal-toggle {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .control-signal-toggle {
-    flex-shrink: 0;
     font-family: inherit;
     font-size: 0.75rem;
     font-weight: 600;
