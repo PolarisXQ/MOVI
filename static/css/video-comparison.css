@@ -148,8 +148,9 @@
 }
 
 .card-control-signal-toggle {
-    width: 100%;
-    justify-self: stretch;
+    width: auto;
+    white-space: nowrap;
+    align-self: stretch;
 }
 
 #video-demos .container {
@@ -163,7 +164,7 @@
 
 .comparison-card-with-meta {
     display: grid;
-    grid-template-columns: clamp(250px, 23vw, 292px) minmax(0, 1fr);
+    grid-template-columns: clamp(190px, 18vw, 236px) minmax(0, 1fr);
     gap: 16px;
     padding: 14px;
     align-items: stretch;
@@ -171,7 +172,27 @@
 
 .comparison-card-with-meta .video-compare-container {
     margin-bottom: 0;
-    height: 100%;
+    height: auto;
+}
+
+.comparison-main-panel {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 10px;
+}
+
+.comparison-video-topbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+    align-items: stretch;
+}
+
+.prompt-inline-box {
+    background: #f7f7f9;
+    border: 1px solid #e1e1e6;
+    border-radius: 8px;
+    padding: 8px 10px;
 }
 
 .comparison-meta-panel {
@@ -230,12 +251,12 @@
 
 .prompt-content {
     margin: 0;
-    min-height: 52px;
-    max-height: 96px;
+    min-height: 32px;
+    max-height: 42px;
     overflow: auto;
     white-space: pre-wrap;
     word-break: break-word;
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     line-height: 1.35;
     color: #2f2f31;
     font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
@@ -252,7 +273,7 @@
     }
 
     .comparison-card-with-meta {
-        grid-template-columns: minmax(236px, 268px) minmax(0, 1fr);
+        grid-template-columns: minmax(176px, 208px) minmax(0, 1fr);
     }
 }
 
@@ -263,5 +284,13 @@
 
     .comparison-meta-panel {
         grid-template-columns: 1fr;
+    }
+
+    .comparison-video-topbar {
+        grid-template-columns: 1fr;
+    }
+
+    .card-control-signal-toggle {
+        width: 100%;
     }
 }

@@ -143,6 +143,18 @@ function createModelContent(taskName, videoName) {
 function createReferencePanel(taskName, videoName) {
     const panel = document.createElement('aside');
     panel.className = 'comparison-meta-panel';
+    panel.appendChild(createMetaBox('3D Model', createModelContent(taskName, videoName)));
+    panel.appendChild(createMetaBox('Multi-View Reference Images', createGalleryContent(taskName, videoName)));
+    return panel;
+}
+
+function createVideoTopBar(taskName, videoName) {
+    const topBar = document.createElement('div');
+    topBar.className = 'comparison-video-topbar';
+
+    const promptBox = document.createElement('div');
+    promptBox.className = 'prompt-inline-box';
+    promptBox.appendChild(createPromptContent(taskName, videoName));
 
     const toggleBtn = document.createElement('button');
     toggleBtn.type = 'button';
@@ -151,11 +163,9 @@ function createReferencePanel(taskName, videoName) {
     toggleBtn.title = 'Switch edited result between standard output and control-signal visualization';
     toggleBtn.textContent = 'show control signal';
 
-    panel.appendChild(toggleBtn);
-    panel.appendChild(createMetaBox('3D Model', createModelContent(taskName, videoName)));
-    panel.appendChild(createMetaBox('Multi-View Reference Images', createGalleryContent(taskName, videoName)));
-    panel.appendChild(createMetaBox('Prompt', createPromptContent(taskName, videoName)));
-    return panel;
+    topBar.appendChild(promptBox);
+    topBar.appendChild(toggleBtn);
+    return topBar;
 }
 
 function initReferencePanels() {
@@ -167,8 +177,14 @@ function initReferencePanels() {
         if (!info.taskName || !info.videoName) return;
 
         const panel = createReferencePanel(info.taskName, info.videoName);
+        const mainPanel = document.createElement('div');
+        mainPanel.className = 'comparison-main-panel';
+        mainPanel.appendChild(createVideoTopBar(info.taskName, info.videoName));
+        mainPanel.appendChild(container);
+
         card.classList.add('comparison-card-with-meta');
         card.insertBefore(panel, container);
+        card.insertBefore(mainPanel, panel.nextSibling);
     });
 }
 
