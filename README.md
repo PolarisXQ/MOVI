@@ -36,18 +36,6 @@ The release package does not include model weights. Download them after confirmi
 | LongCLIP (multi-view consistency check) | [Hugging Face: zer0int/LongCLIP-GmP-ViT-L-14](https://huggingface.co/zer0int/LongCLIP-GmP-ViT-L-14) | `models/LongCLIP-GmP-ViT-L-14/` |
 | This project's fine-tuned full/LoRA checkpoint | TODO | `models/checkpoints/diffsynth_multiview_full.safetensors` or `models/checkpoints/diffsynth_multiview_lora.safetensors` |
 
-Configure the consistency-model path using either option below. The demo defaults to the local directory:
-
-```bash
-# Recommended: environment variable
-export CLIP_CONSISTENCY_MODEL_PATH="$PWD/models/LongCLIP-GmP-ViT-L-14"
-
-# Or pass it on the command line
-python demo/infer_single_video_with_reference42.py \
-  --clip_consistency_model_path "$PWD/models/LongCLIP-GmP-ViT-L-14" \
-  ...
-```
-
 Afterward, you can run the [demo](#demo) below.
 
 ### 3. Optional installation (training)
@@ -92,11 +80,8 @@ After placing the files, run this command from the repository root:
 ```bash
 mkdir -p demo/out
 python demo/infer_single_video_with_reference42.py \
-  --video_name car-roundabout \
-  --num_reference_views 4
+  --video_name car-roundabout
 ```
-
-Alternatively, use `bash demo/run.sh`, which runs `car-roundabout` by default.
 
 The default paths resolve as follows:
 

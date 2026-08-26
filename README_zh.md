@@ -36,18 +36,6 @@ pip install -e .
 | LongCLIP（多视角一致性检查） | [Hugging Face: zer0int/LongCLIP-GmP-ViT-L-14](https://huggingface.co/zer0int/LongCLIP-GmP-ViT-L-14) | `models/LongCLIP-GmP-ViT-L-14/` |
 | 本项目微调 full/LoRA checkpoint | TODO | `models/checkpoints/diffsynth_multiview_full.safetensors` 或 `models/checkpoints/diffsynth_multiview_lora.safetensors` |
 
-配置一致性模型路径（任选其一；demo 默认已指向本地目录）：
-
-```bash
-# 推荐：环境变量
-export CLIP_CONSISTENCY_MODEL_PATH="$PWD/models/LongCLIP-GmP-ViT-L-14"
-
-# 或命令行
-python demo/infer_single_video_with_reference42.py \
-  --clip_consistency_model_path "$PWD/models/LongCLIP-GmP-ViT-L-14" \
-  ...
-```
-
 完成后即可直接跑下方 [Demo](#demo)。
 
 ### 3. 可选安装（训练）
@@ -92,11 +80,8 @@ demo/
 ```bash
 mkdir -p demo/out
 python demo/infer_single_video_with_reference42.py \
-  --video_name car-roundabout \
-  --num_reference_views 4
+  --video_name car-roundabout
 ```
-
-也可用 `bash demo/run.sh`（默认跑 `car-roundabout`）。
 
 默认会解析为：
 
@@ -122,5 +107,4 @@ python demo/infer_single_video_with_reference42.py \
   --prompt "a detailed description of the desired video"
 ```
 
-<!-- #使用 full checkpoint 时加 `--checkpoint_type full` 与 `--full_checkpoint_path`。输入帧数会调整为 `4n+1`（至少 17）；默认 832×480、81 帧。 -->
 全部参数见 `python demo/infer_single_video_with_reference42.py --help`。
