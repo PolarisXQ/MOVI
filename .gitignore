@@ -1,0 +1,29 @@
+*.mp4
+models/*
+build/
+*temp*
+*debug*
+*result*
+*.log
+third-party/
+.git-ori/
+
+# diffsynth/trainers/
+! diffsynth/trainers/davis17_vace_dataset.py
+! diffsynth/trainers/VIPSeg_origin_mix_loader30hz.py
+
+__pycache__/
+*.pyc
+*.egg-info/
+*.egg
+*.eggs/
+*.pyd
+*.pyw
+*.pyz
+*.pywz
+*.pyzw
+*.pyzwz
+*.pyzwzw
+*.pyzwzwz
+*.pyzwzwzw
+*.pyzwzwzwz

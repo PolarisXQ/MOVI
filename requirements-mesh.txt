@@ -1,0 +1,3 @@
+# Deprecated alias: use requirements-train.txt
+# Kept so older docs / scripts that mention requirements-mesh.txt still work.
+-r requirements-train.txt

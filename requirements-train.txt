@@ -1,0 +1,14 @@
+# Optional: training / mesh-conditioned data pipelines
+# (diffsynth.trainers.mesh_util, davis17/VIPSeg/ROSE loaders, etc.)
+#
+# After the base inference install:
+#   pip install -r requirements-train.txt
+#   # then install nvdiffrast (see README; same as V2M4 setup.sh --nvdiffrast)
+
+easydict>=1.10
+trimesh>=4.0.0
+numpy
+imageio
+Pillow
+ninja
+datasets
