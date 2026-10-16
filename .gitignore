@@ -7,6 +7,12 @@ build/
 *.log
 third-party/
 .git-ori/
+demo/out*
+demo/*.sh
+*.err
+*.out
+*_bk
+
 
 # diffsynth/trainers/
 ! diffsynth/trainers/davis17_vace_dataset.py

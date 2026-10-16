@@ -2429,9 +2429,11 @@ class WanVideoUnit_InputVideoEmbedder(PipelineUnit):
                 multiview_reference_latents_list.append(ref_latent.squeeze(0))  # (C, 1, H, W)
             multiview_reference_latents = torch.concat(multiview_reference_latents_list, dim=1)  # (C, T, H, W)
             multiview_reference_latents = multiview_reference_latents.unsqueeze(0)
-            # Cross-modal consistency: down-weight reference when text–image consistency is low
-            w = multiview_reference_weight if multiview_reference_weight is not None else 1.0
-            multiview_reference_latents = multiview_reference_latents * w
+            # Match Mar15: consistency weight is applied on feature_bank/ipadapter scale only,
+            # not on temporal_concat reference latents.
+            # # Cross-modal consistency: down-weight reference when text–image consistency is low
+            # w = multiview_reference_weight if multiview_reference_weight is not None else 1.0
+            # multiview_reference_latents = multiview_reference_latents * w
             input_latents = torch.concat([multiview_reference_latents, input_latents], dim=2)
         if pipe.scheduler.training:
             return {"latents": noise, "input_latents": input_latents}
@@ -2827,8 +2829,9 @@ class WanVideoUnit_VACE(PipelineUnit):
                 vace_reference_latents = torch.concat((vace_reference_latents, torch.zeros_like(vace_reference_latents)), dim=1)
                 # Split along temporal dimension for concatenation with video latents
                 vace_reference_latents = [vace_reference_latents[:, :, j:j+1] for j in range(f)]
-                # Cross-modal consistency: down-weight reference when text–image consistency is low
-                vace_reference_latents = [x * ref_weight for x in vace_reference_latents]
+                # Match Mar15: do not multiply vace_reference latents by consistency weight.
+                # # Cross-modal consistency: down-weight reference when text–image consistency is low
+                # vace_reference_latents = [x * ref_weight for x in vace_reference_latents]
 
                 vace_video_latents = torch.concat((*vace_reference_latents, vace_video_latents), dim=2)
                 vace_mask_latents = torch.concat((torch.zeros_like(vace_mask_latents[:, :, :f]), vace_mask_latents), dim=2)

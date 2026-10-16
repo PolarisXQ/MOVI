@@ -9,9 +9,9 @@ from diffsynth import load_state_dict
 from diffsynth.pipelines.wan_video_new import WanVideoPipeline, ModelConfig
 from diffsynth.trainers.utils import DiffusionTrainingModule, ModelLogger, launch_training_task, wan_parser, MultiDatasetLoader
 from diffsynth.trainers.davis17_vace_dataset import DAVIS17_VACE_Dataset
-from diffsynth.trainers.humanm3_vace_dataset import HumanM3_VACE_Dataset
-from diffsynth.trainers.penn_action_vace_dataset import PennAction_VACE_Dataset
-from diffsynth.trainers.dpw3d_vace_dataset import DPW3D_VACE_Dataset
+# from diffsynth.trainers.humanm3_vace_dataset import HumanM3_VACE_Dataset
+# from diffsynth.trainers.penn_action_vace_dataset import PennAction_VACE_Dataset
+# from diffsynth.trainers.dpw3d_vace_dataset import DPW3D_VACE_Dataset
 import shutil, glob
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 DEBUG_TIME = False
@@ -727,7 +727,7 @@ if __name__ == "__main__":
     parser.add_argument("--lambda_latent_segmentation", type=float, default=0.005, help="The weight of the latent segmentation loss in the total loss. Default is 0.005.")
     parser.add_argument("--lambda_latent_depth", type=float, default=0.005, help="The weight of the latent depth loss in the total loss. Default is 0.005.")
     parser.add_argument("--lambda_temporal_coherence", type=float, default=0.0, help="The weight of the temporal coherence loss in the total loss. Default is 0.0.")
-    parser.add_argument("--temporal_coherence_method", type=str, default="raft", choices=["raft", "simple"], help="Optical flow backend for temporal coherence loss. Default is RAFT; use simple for the previous gradient-based method.")
+    parser.add_argument("--temporal_coherence_method", type=str, default="simple", choices=["raft", "simple"], help="Optical flow backend for temporal coherence loss. Default is RAFT; use simple for the previous gradient-based method.")
     parser.add_argument("--raft_model_path", type=str, default=os.getenv("RAFT_MODEL_PATH", None), help="Path to RAFT checkpoint for temporal coherence loss. Defaults to RAFT_MODEL_PATH or VBench cache.")
     parser.add_argument("--lambda_multiview_dino_viewpoint", type=float, default=0.0, help="Weight of the DINO viewpoint control loss between generated first frame and multiview_reference_image[0]. Default is 0.0.")
     parser.add_argument("--multiview_dino_model_path", type=str, default=os.getenv("DINO_VIEW_CONTROL_MODEL_PATH", "facebook/dinov2-base"), help="Local path or HuggingFace id for the DINO model used by the multiview viewpoint control loss.")
@@ -824,7 +824,7 @@ if __name__ == "__main__":
         # DiffSynth-Studio/diffsynth/trainers/davis17_vace_dataset.py
         # DiffSynth-Studio/examples/wanvideo/model_training/train_davis17_vace.py
         project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
-        shutil.copy(os.path.join(project_root, "examples/wanvideo/model_training/lora/Wan2.1-VACE-1.3B-DAVIS17.sh"), src_path)
+        shutil.copy(os.path.join(project_root, "examples/wanvideo/model_training/lora/Wan2.1-VACE-1.3B-DAVIS17-multiview.sh"), src_path)
         model_files = glob.glob(os.path.join(project_root, "diffsynth/models/wan_video_*.py"))
         for model_file in model_files:
             shutil.copy(model_file, src_path)

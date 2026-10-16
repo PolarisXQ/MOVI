@@ -1138,12 +1138,15 @@ class MeshLoader:
             len(render_config) rendered images, each image is a numpy array of shape (512, 512, 3)
         """
         frame_index = self.process_frame_index(major_class_name, frame_index, frame_selecting_strategy)
-        if self.dataset == "DAVIS17":
-            img_path = os.path.join('/inspurfs/group/mayuexin/xiaqi/DAVIS-2017/v2m4_results/masked_samples_new', major_class_name, f'{frame_index}_rotated_*deg_textured_no_light.png')
-        elif self.dataset == "VIPSeg":
-            img_path = os.path.join('/inspurfs/group/mayuexin/xiaqi/VIPSeg/v2m4_results', major_class_name, f'{frame_index}_rotated_*deg_textured_no_light.png')
-        elif self.dataset == "ROSE":
-            img_path = os.path.join('/inspurfs/group/mayuexin/xiaqi/ROSE-Dataset/v2m4_results', major_class_name, f'{frame_index}_rotated_*deg_textured_no_light.png')
+        # Always read pre-rendered multiview images from MeshLoader.data_root
+        # (set via DAVIS17_V2M4_RESULTS_PATH / VIPSEG_V2M4_RESULTS_PATH / ROSE_V2M4_RESULTS_PATH).
+        # Do not hardcode /inspurfs/... paths — those may be empty on some nodes.
+        if self.dataset in ("DAVIS17", "VIPSeg", "ROSE"):
+            img_path = os.path.join(
+                self.data_root,
+                major_class_name,
+                f"{frame_index}_rotated_*deg_textured_no_light.png",
+            )
         else:
             raise ValueError(f"Invalid dataset: {self.dataset}")
         img_paths = glob.glob(img_path)

@@ -142,7 +142,7 @@ class VaceWanModel(torch.nn.Module):
         eps=1e-6,
         use_ref_gating: bool = False,
         use_ref_attention: bool = False,
-        use_multiscale_vace: bool = True,
+        use_multiscale_vace: bool = False,  # Mar15 default: off; enable explicitly if needed
         multiscale_spatial_scales=(1, 2, 4),
     ):
         super().__init__()
